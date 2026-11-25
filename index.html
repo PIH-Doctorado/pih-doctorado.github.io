@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="PIH Doctorado: vigilancia bibliográfica automática y gratuita para tu tesis, en una hoja de Google que es solo tuya.">
+<!-- Mientras no quieras que aparezca en buscadores, deja esta línea. Para hacerla pública en Google, bórrala. -->
+<meta name="robots" content="noindex, nofollow">
+<title>PIH Doctorado</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+html{color-scheme:light}
+body{margin:0}
+[hidden]{display:none!important}
+img{max-width:100%}
+
+/* Layout: columna central de lectura; hero sobrio, demo de tabla, pasos numerados (secuencia real), preguntas plegables. */
+:root{
+  --bg:#F5F7F9; --surface:#FFFFFF; --ink:#14202B; --muted:#4D5C6A; --line:#D9E0E6;
+  --primary:#24445C; --primary-ink:#FFFFFF; --accent:#1B7F6B; --soft:#E6EEF3;
+  --r5:#1E7B4F; --r5t:#fff; --r4:#7CC49A; --r3:#FFE5A6; --r2:#F8CBAD;
+  --f-display:"Source Serif 4",Georgia,serif; --f-body:Inter,system-ui,sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0F171F; --surface:#17222C; --ink:#E8EEF3; --muted:#9FB0BE; --line:#2A3946;
+  --primary:#7FB0D1; --primary-ink:#0F171F; --accent:#5FC2A9; --soft:#1D2B37;
+  --r5:#2E9B68; --r4:#3F8A62; --r3:#6B5A2A; --r2:#6B4630; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F171F; --surface:#17222C; --ink:#E8EEF3; --muted:#9FB0BE; --line:#2A3946;
+  --primary:#7FB0D1; --primary-ink:#0F171F; --accent:#5FC2A9; --soft:#1D2B37;
+  --r5:#2E9B68; --r4:#3F8A62; --r3:#6B5A2A; --r2:#6B4630; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;
+  padding-block:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:880px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.2;text-wrap:balance;margin:0}
+h1{font-size:clamp(2rem,5.5vw,3.1rem)}
+h2{font-size:clamp(1.5rem,3.5vw,1.9rem);margin-bottom:.4rem}
+h3{font-size:1.15rem}
+p{margin:0 0 1rem;max-width:65ch}
+a{color:var(--primary)}
+section{padding-block:3rem}
+.eyebrow{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem;font-weight:600}
+.lead{font-size:1.15rem;color:var(--muted)}
+.hero{padding-block:4rem 2.5rem}
+.cta{display:inline-block;background:var(--primary);color:var(--primary-ink);padding:.8rem 1.4rem;border-radius:6px;text-decoration:none;font-weight:600;border:0;cursor:pointer;font:inherit;font-weight:600}
+.cta:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.cta[aria-disabled="true"]{opacity:.55;cursor:not-allowed}
+.ghost{margin-left:1rem;font-weight:500}
+.note{font-size:.88rem;color:var(--muted);margin-top:.8rem}
+
+.demo{background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.demo-h{padding:.7rem 1rem;border-bottom:1px solid var(--line);font-size:.85rem;color:var(--muted);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:.92rem}
+th{text-align:left;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:.6rem 1rem;border-bottom:1px solid var(--line)}
+td{padding:.7rem 1rem;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+.chip{display:inline-block;font-family:var(--f-mono);font-size:.8rem;padding:.1rem .55rem;border-radius:4px;min-width:2rem;text-align:center}
+.c5{background:var(--r5);color:#fff}.c4{background:var(--r4);color:var(--ink)}.c3{background:var(--r3);color:var(--ink)}.c2{background:var(--r2);color:var(--ink)}
+.st{font-size:.82rem;color:var(--muted)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem 2rem;margin-top:1.5rem}
+.grid div{min-width:0}
+.grid h3{margin-bottom:.3rem}
+.grid p{font-size:.95rem;color:var(--muted);margin:0}
+
+ol.steps{list-style:none;padding:0;margin:1.5rem 0 0;display:grid;gap:1.1rem;counter-reset:s}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:2.4rem 1fr;gap:.9rem;align-items:start}
+ol.steps li::before{content:counter(s);font-family:var(--f-mono);background:var(--soft);color:var(--primary);width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-size:.95rem}
+ol.steps h3{margin-bottom:.15rem}
+ol.steps p{margin:0;color:var(--muted);font-size:.95rem}
+ol.steps li>div{min-width:0}
+
+details{border-bottom:1px solid var(--line);padding-block:1rem}
+summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:1rem}
+summary::after{content:"+";color:var(--muted);font-family:var(--f-mono)}
+details[open] summary::after{content:"–"}
+details p{margin:.7rem 0 0;color:var(--muted)}
+table.perm{min-width:0}
+.perm td:first-child{font-weight:600;width:38%}
+.limits{background:var(--soft);border-radius:8px;padding:1.2rem 1.4rem;margin-top:1rem}
+.limits ul{margin:.4rem 0 0;padding-left:1.1rem;color:var(--muted)}
+footer{padding-block:2rem 3rem;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
+@media (prefers-reduced-motion:no-preference){.cta{transition:transform .15s}.cta:hover{transform:translateY(-1px)}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">Vigilancia bibliográfica para doctorandos</div>
+  <h1>Tu tesis ya sabe qué leer esta semana.</h1>
+  <p class="lead">PIH Doctorado busca cada día publicaciones nuevas sobre tu tema, las puntúa de 0 a 5 con IA según tu propia tesis y las deja ordenadas en una hoja de Google que es solo tuya. Funciona con cuentas gratuitas.</p>
+  <p>
+    <a class="cta" id="obtener" href="#empezar" aria-disabled="true">Obtener mi PIH</a>
+    <a class="ghost" href="#empezar">Cómo empezar</a>
+  </p>
+  <p class="note" id="aviso-enlace">Enlace de la plantilla pendiente de publicar.</p>
+</header>
+
+<section style="padding-top:1rem">
+  <div class="eyebrow">Así se ve el RADAR</div>
+  <h2>Lo importante arriba, con el motivo al lado</h2>
+  <p>Cada publicación llega con un resumen de una frase, su relevancia para tu tesis y un estado que cambias con un desplegable. Ejemplo ilustrativo con títulos inventados:</p>
+  <div class="demo">
+    <div class="demo-h"><span>RADAR · ordenado por relevancia</span><span>Datos de ejemplo</span></div>
+    <div class="scroll">
+    <table>
+      <thead><tr><th>Rel.</th><th>Publicación</th><th>Resumen</th><th>Estado</th></tr></thead>
+      <tbody>
+        <tr><td><span class="chip c5">5</span></td><td>Modelo comparado de decisión en instituciones del caso A y B (2026)</td><td>Compara criterios de decisión en dos casos, con entrevistas a directivos.</td><td class="st">Pendiente</td></tr>
+        <tr><td><span class="chip c4">4</span></td><td>Marco teórico de legitimidad institucional (2025)</td><td>Propone un marco que encaja con el segundo eje de tu tesis.</td><td class="st">Para leer</td></tr>
+        <tr><td><span class="chip c3">3</span></td><td>Métodos mixtos en estudios de caso (2024)</td><td>Útil como referencia metodológica, sin tu tema.</td><td class="st">Pendiente</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:1rem">
+  <div class="eyebrow">Qué incluye</div>
+  <h2>Un sistema completo dentro de una hoja de cálculo</h2>
+  <div class="grid">
+    <div><h3>Radar diario</h3><p>Busca novedades en OpenAlex, una base abierta con más de 250 millones de obras científicas.</p></div>
+    <div><h3>Radar histórico</h3><p>Recorre la bibliografía anterior por oleadas y se detiene cuando deja de aportar.</p></div>
+    <div><h3>Puntuación con IA</h3><p>Gemini lee cada resumen con el contexto de tu tesis y explica por qué puntúa así.</p></div>
+    <div><h3>Mapa de huecos</h3><p>Señala qué partes de tu tesis tienen poca bibliografía y sugiere qué buscar.</p></div>
+    <div><h3>Autores y congresos</h3><p>Vigila a los autores que tú elijas y te avisa de plazos de congresos por correo.</p></div>
+    <div><h3>Tu gestor de referencias</h3><p>Envío automático a Zotero (con una clave gratuita) o a Mendeley. Lo que marques como «Para leer» aparece en tu biblioteca.</p></div>
+  </div>
+</section>
+
+<section id="empezar">
+  <div class="eyebrow">Cómo empezar</div>
+  <h2>Seis pasos, unos 20 minutos</h2>
+  <ol class="steps">
+    <li><div><h3>Haz tu copia</h3><p>Pulsa «Obtener mi PIH». Google te pedirá confirmar «Hacer una copia». La copia es tuya y nadie más la ve.</p></div></li>
+    <li><div><h3>Consigue tu clave de Gemini</h3><p>Entra en <a href="https://aistudio.google.com/" target="_blank" rel="noopener">aistudio.google.com</a>, pulsa «Get API key» y copia la clave. No hace falta tarjeta.</p></div></li>
+    <li><div><h3>Consigue tu clave de OpenAlex</h3><p>Crea una cuenta gratuita en <a href="https://openalex.org/" target="_blank" rel="noopener">openalex.org</a> y copia la clave desde tu perfil. Si usas Zotero, crea también una clave en <a href="https://www.zotero.org/settings/keys" target="_blank" rel="noopener">zotero.org/settings/keys</a> con permiso de lectura y escritura.</p></div></li>
+    <li><div><h3>Abre «Configurar mi tesis»</h3><p>En tu hoja, menú PIH Doctorado. Google pedirá permisos la primera vez (ver abajo). Pega el resumen de tu tesis, tus palabras clave y las dos claves.</p></div></li>
+    <li><div><h3>Revisa tu perfil</h3><p>La IA genera tus consultas de búsqueda y los bloques de tu tesis en la pestaña PERFIL. Corrige lo que no te convenza.</p></div></li>
+    <li><div><h3>Activa la automatización</h3><p>PIH Doctorado &gt; Ajustes &gt; Activar toda la automatización. Desde ahí trabaja solo.</p></div></li>
+  </ol>
+</section>
+
+<section>
+  <div class="eyebrow">Permisos y privacidad</div>
+  <h2>Qué te pide Google y por qué</h2>
+  <p>Al abrir el asistente por primera vez, Google muestra un aviso de «aplicación no verificada». Es normal en scripts personales: pulsa «Configuración avanzada» y luego «Ir a… (no seguro)». El script es de tu copia y lo puedes leer entero en Extensiones &gt; Apps Script.</p>
+  <div class="demo"><div class="scroll">
+  <table class="perm">
+    <tbody>
+      <tr><td>Hojas de cálculo</td><td>Leer y escribir las pestañas de tu documento. Solo ese documento.</td></tr>
+      <tr><td>Servicio externo</td><td>Consultar OpenAlex y Gemini, y Mendeley si lo conectas.</td></tr>
+      <tr><td>Enviar correo</td><td>Resumen semanal y avisos de plazos, siempre a tu propia dirección.</td></tr>
+      <tr><td>Ejecutarse sin ti</td><td>Los procesos automáticos diarios.</td></tr>
+    </tbody>
+  </table></div></div>
+  <div style="margin-top:1.2rem">
+    <details><summary>¿Quién ve mi tesis y mis claves?</summary><p>Solo tú. Tu resumen se guarda en tu hoja y tus claves en las propiedades privadas de tu script, que no se copian si compartes el documento. Para generar tu perfil y puntuar publicaciones, el texto del resumen y de cada publicación se envía a Gemini mediante tu propia clave.</p></details>
+    <details><summary>¿De verdad es gratis?</summary><p>Sí, con las cuotas gratuitas de Google, OpenAlex y Mendeley. Si alcanzas un límite, el sistema se detiene y continúa solo más tarde. Nunca pide datos de pago.</p></details>
+    <details><summary>¿Funciona fuera de humanidades?</summary><p>El asistente se ha probado con una tesis de biotecnología vegetal además de una de gestión cultural, y generó consultas y bloques coherentes en ambas. La calidad depende de lo concreto que sea tu resumen.</p></details>
+    <details><summary>¿Zotero o Mendeley?</summary><p>Ambos. Zotero es lo más sencillo: creas una clave en zotero.org/settings/keys y la pegas en la hoja. Mendeley exige registrar tu propia aplicación de desarrollador, por lo que se recomienda solo a quien ya tenga experiencia. Si usas EndNote, Citavi u otro gestor, hay un menú que te envía por correo un archivo RIS, un formato que casi todos saben importar.</p></details>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">Si algo falla</div>
+  <h2>Los problemas más habituales</h2>
+  <div style="margin-top:1rem">
+    <details><summary>«Falta la clave de Gemini»</summary><p>Pega la clave en el formulario de «Configurar mi tesis». Se crea gratis en aistudio.google.com con «Get API key». Se guarda en tu hoja y no se comparte.</p></details>
+    <details><summary>«Falta configurar la tesis»</summary><p>Todavía no has completado el asistente. Ve a PIH Doctorado &gt; «Configurar mi tesis» y pulsa «Guardar y generar mi perfil».</p></details>
+    <details><summary>Google dice «aplicación no verificada»</summary><p>Es normal en scripts personales. Pulsa «Configuración avanzada» y luego «Ir a… (no seguro)». Puedes leer todo el código en Extensiones &gt; Apps Script.</p></details>
+    <details><summary>Gemini da error 503 o dice que hay mucha demanda</summary><p>Es un fallo temporal de Google. No hagas nada: el sistema reintenta solo en la siguiente pasada. Si ocurre al generar el perfil, vuelve a pulsar «Guardar» pasados unos minutos.</p></details>
+    <details><summary>Salen pocas o ninguna publicación</summary><p>Revisa en la pestaña PERFIL que las consultas del radar tengan sentido para tu tesis y corrígelas si hace falta (una por línea). Después usa «Buscar novedades ahora». Si falla, mira el motivo en la pestaña LOG.</p></details>
+    <details><summary>Quiero cambiar el tema o el resumen de mi tesis</summary><p>Vuelve a abrir «Configurar mi tesis» y genera el perfil otra vez, o edita directamente las celdas amarillas de PERFIL.</p></details>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">Para probar</div>
+  <h2>Un resumen de ejemplo, si quieres ver cómo funciona</h2>
+  <p>Puedes pegar este texto ficticio en «Configurar mi tesis» para ver el resultado antes de escribir el tuyo.</p>
+  <div class="limits" style="margin-top:0">
+    <p style="margin:0 0 .6rem"><strong>Tema:</strong> La recepción de la novela histórica contemporánea en la prensa cultural española.</p>
+    <p style="margin:0 0 .6rem"><strong>Disciplina:</strong> Literatura comparada.</p>
+    <p style="margin:0 0 .6rem"><strong>Resumen:</strong> Esta tesis analiza cómo la crítica periodística ha recibido la novela histórica española publicada desde el año 2000, y cómo esa recepción condiciona los discursos públicos sobre la memoria colectiva. Combina análisis de contenido de suplementos culturales con una lectura comparada de tres novelas que han tenido gran visibilidad. Se parte de la hipótesis de que la prensa cultural actúa como instancia de legitimación que privilegia ciertas representaciones del pasado frente a otras. El marco teórico integra la sociología de la literatura, los estudios de memoria y la teoría de la recepción.</p>
+    <p style="margin:0"><strong>Palabras clave:</strong> novela histórica, crítica literaria, prensa cultural, memoria colectiva, teoría de la recepción.</p>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">Límites</div>
+  <h2>Qué conviene saber antes de empezar</h2>
+  <div class="limits">
+    <ul>
+      <li>La puntuación con IA es una guía, no un juicio. Corrígela cuando no coincidas: tus cambios se guardan.</li>
+      <li>Gemini gratuito se satura de vez en cuando. Clasificar cientos de publicaciones puede tardar días.</li>
+      <li>OpenAlex cubre bien artículos y menos bien libros y literatura gris.</li>
+      <li>Las fuentes abiertas de tesis incluidas por defecto son de repositorios españoles y catalanes. Son opcionales.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  PIH Doctorado es un proyecto personal sin ánimo de lucro, no afiliado a Google, OpenAlex ni Mendeley. Revisa las condiciones de uso de tu universidad antes de enviar a servicios externos el texto de tu tesis.
+</footer>
+
+</div>
+
+<script>
+// Pega aquí el enlace de la plantilla cuando esté lista. Formato:
+// https://docs.google.com/spreadsheets/d/ID_DE_LA_PLANTILLA/copy
+var ENLACE_PLANTILLA = "https://docs.google.com/spreadsheets/d/1GOVsEhQz9K1Ww1TL2DzDRuXLLFFA1FojWpFaWf0e8fs/copy";
+(function () {
+  var b = document.getElementById("obtener");
+  var a = document.getElementById("aviso-enlace");
+  if (ENLACE_PLANTILLA) {
+    b.href = ENLACE_PLANTILLA; b.target = "_blank"; b.rel = "noopener";
+    b.removeAttribute("aria-disabled"); a.hidden = true;
+  } else {
+    b.addEventListener("click", function (e) { e.preventDefault(); document.getElementById("empezar").scrollIntoView(); });
+  }
+})();
+</script>
+</body>
+</html>
