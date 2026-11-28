@@ -6,6 +6,7 @@ abstract: "Free, non-profit Google Sheets and Apps Script template that monitors
 authors:
   - family-names: "Fernández Rivas"
     given-names: "Alejandro"
+doi: "10.5281/zenodo.24635388"
 version: 1.0.0
 date-released: "2026-11-28"
 license: AGPL-3.0-only
