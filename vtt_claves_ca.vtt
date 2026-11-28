@@ -1,0 +1,35 @@
+WEBVTT
+
+00:00:04.000 --> 00:00:06.100
+Clau de Gemini (obligatòria)
+
+00:00:07.000 --> 00:00:12.100
+Entra a aistudio.google.com amb el teu compte de Google
+
+00:00:13.000 --> 00:00:18.100
+Prem «Get API key» (a dalt a l'esquerra o al menú)
+
+00:00:19.000 --> 00:00:24.100
+Prem «Create API key» i tria un projecte, o deixa que se'n creï un de nou
+
+00:00:25.000 --> 00:00:30.100
+Copia la clau, que comença per «A»
+
+00:00:31.000 --> 00:00:36.100
+Enganxa-la al formulari «Configurar la meva tesi» del teu full
+
+00:00:37.000 --> 00:00:39.100
+Clau de OpenAlex (obligatòria)
+
+00:00:40.000 --> 00:00:45.100
+Entra a openalex.org i prem «Sign in» o «Sign up» per crear un compte gratuït
+
+00:00:46.000 --> 00:00:51.100
+Obre el teu perfil o els ajustos del compte
+
+00:00:52.000 --> 00:00:57.100
+Busca l'apartat de la clau d'API («API key») i copia'n el valor
+
+00:00:58.000 --> 00:01:03.100
+Enganxa-la al formulari «Configurar la meva tesi»
+

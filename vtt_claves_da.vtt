@@ -1,0 +1,35 @@
+WEBVTT
+
+00:00:04.000 --> 00:00:06.100
+Gemini-nøgle (påkrævet)
+
+00:00:07.000 --> 00:00:12.100
+Gå til aistudio.google.com med din Google-konto
+
+00:00:13.000 --> 00:00:18.100
+Klik på »Get API key« (øverst til venstre eller i menuen)
+
+00:00:19.000 --> 00:00:24.100
+Klik på »Create API key« og vælg et projekt, eller lad et nyt blive oprettet
+
+00:00:25.000 --> 00:00:30.100
+Kopiér nøglen, som begynder med »A«
+
+00:00:31.000 --> 00:00:36.100
+Indsæt den i formularen »Konfigurer min afhandling« i dit regneark
+
+00:00:37.000 --> 00:00:39.100
+OpenAlex-nøgle (påkrævet)
+
+00:00:40.000 --> 00:00:45.100
+Gå til openalex.org og klik på »Sign in« eller »Sign up« for at oprette en gratis konto
+
+00:00:46.000 --> 00:00:51.100
+Åbn din profil eller kontoindstillingerne
+
+00:00:52.000 --> 00:00:57.100
+Find afsnittet med API-nøglen (»API key«) og kopiér værdien
+
+00:00:58.000 --> 00:01:03.100
+Indsæt den i formularen »Konfigurer min afhandling«
+
