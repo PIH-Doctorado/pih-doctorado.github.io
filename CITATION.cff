@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "PIH Doctorado: Personal Intelligence Hub"
+abstract: "Free, non-profit Google Sheets and Apps Script template that monitors and organises the bibliography of a doctoral thesis."
+authors:
+  - family-names: "Fernández Rivas"
+    given-names: "Alejandro"
+version: 1.0.0
+date-released: "2026-11-28"
+license: AGPL-3.0-only
+url: "https://pih-doctorado.github.io/"
+repository-code: "https://github.com/pih-doctorado/pih-doctorado.github.io"
+keywords:
+  - doctoral research
+  - bibliography
+  - Google Sheets
+  - Apps Script
+  - open source
